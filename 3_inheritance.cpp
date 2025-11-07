@@ -1,0 +1,43 @@
+#include <iostream>
+#include <windows.h>
+
+class Point
+{
+    private:
+        int x,y;
+    public:
+        Point(): x(0), y(0)
+        {
+            std::cout<<"Вызван конструктор Point() по умолчанию. Адрес: "<<this<<std::endl;
+        }
+        Point (int x, int y): x(x), y(y)
+        {
+            std::cout<<"Вызван конструктор Point(int, int) с параметрами. Адрес: "<<this<<std::endl;
+        }
+        Point (const Point& other): x(other.x), y(other.y)
+        {
+            std::cout<<"Вызван конструктор копирования Point(const Point&). Адрес: "<<this<<" (копирую с "<<&other<<")"<<std::endl;
+        }
+        ~Point()
+        {
+            std::cout<<"Вызван деструктор ~Point(). Адрес: "<<this<<std::endl;
+        }
+        void set(int newX, int newY)
+        {
+            x = newX;
+            y = newY;
+        }
+        void print() const 
+        {
+            std::cout<<"Point("<<x<<", "<<y<<") по адресу: "<<this<<std::endl;
+        }
+};
+
+int main()
+{
+    SetConsoleCP(CP_UTF8);
+    SetConsoleOutputCP(CP_UTF8);
+
+    std::cout<<"Конец. "<<std::endl;
+    return 0;
+}
