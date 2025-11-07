@@ -3,7 +3,7 @@
 
 class Point
 {
-    private:
+    protected:
         int x,y;
     public:
         Point(): x(0), y(0)
@@ -33,11 +33,51 @@ class Point
         }
 };
 
+class Circle: public Point
+{
+    private:
+        int radius;
+    public:
+        Circle(): Point(),radius(1)
+        {
+            std::cout<<"Конструктор Circle(). Адрес: "<<this<<std::endl;
+        }
+        Circle(int x, int y, int r): Point(x,y),radius(r)
+        {
+            std::cout<<"Вызван конструктор Circle(int, int, int) с параметрами. Адрес: "<<this<<std::endl;
+        }
+        ~Circle()
+        {
+            std::cout<<"Вызван деструктор ~Circle(). Адрес: "<<this<<std::endl;
+        }
+        void print() const
+        {
+            std::cout << "Окружность с центром в точке (" << x << ", " << y << ") и радиусом " << radius << std::endl;
+        }
+        void printAsPoint() const
+        {
+            std::cout<<"Центр окружности: ";
+            Point::print();
+        }
+};
+
 int main()
 {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
 
-    std::cout<<"Конец. "<<std::endl;
+    std::cout << "Создание объекта Circle" << std::endl;
+    Circle c(5, 10, 3);
+    c.print();          // Вызов переопределенного метода Circle::print
+    c.printAsPoint();   // Вызов метода, который вызывает Point::print
+    // c.Point::print(); // Можно вызвать и так
+
+    std::cout << "\nСоздание Circle* как Point* " << std::endl;
+    Point* ptr = new Circle(1, 1, 5); // Указатель базового типа на объект потомка
+    ptr->print(); // Какой print вызовется? Point::print (Т.к. метод не виртуальный)
+    delete ptr;   // Какой деструктор вызовется? Только ~Point()! Утечка?
+
+    std::cout << "\nКонец" << std::endl;
+    // Деструктор для c вызовется здесь (~Circle, затем ~Point)
     return 0;
 }
