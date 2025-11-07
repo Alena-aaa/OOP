@@ -4,7 +4,9 @@
 class Point
 {
 private:
-	int x, y; 
+	int x;
+protected:
+	int y;
 public:
 	void SetX(int newX)
 	{
@@ -16,7 +18,9 @@ public:
 		std::cout << "Вызван SetY для точки" << std::endl;
 		y = newY;
 	}
-void print() const
+	int GetX() const { return x; }
+	int GetY() const { return y; }
+	void print() const
 	{
 		std::cout << "Point(" << x << ", " << y << ")" << std::endl;
 	}
