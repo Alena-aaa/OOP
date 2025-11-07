@@ -18,6 +18,22 @@ public:
     }
 };
 
+class Rect: public Shape {
+private:
+    int width, height;
+public:
+    Rect(int x, int y, int w, int h) : Shape(x, y), width(w), height(h) {
+        cout << "Вызван конструктор Rectangle(int, int, int, int). Адрес: " << this << endl;
+    }
+    ~Rect() override {
+        cout << "Вызван деструктор ~Rectangle(). Адрес: " << this << endl;
+    }
+    void draw() const override {
+        cout << "Прямоугольник в позиции (" << x << ", " << y << ") размером " 
+             << width << "x" << height << " по адресу: " << this << endl;
+    }
+};
+
 class Circle : public Shape {
 private:
     int radius;
@@ -38,22 +54,25 @@ int main() {
     SetConsoleCP(CP_UTF8);
     SetConsoleOutputCP(CP_UTF8);
     
-    Shape* shapes[2];
-
-cout << "\nСоздаем Circle:" << endl;
+    Shape* shapes[3];
+    
+    cout << "\nСоздаем Circle:" << endl;
     shapes[0] = new Circle(5, 5, 3);
     
+    cout << "\nСоздаем Rectangle:" << endl;
+    shapes[1] = new Rect(10, 10, 4, 6);
+    
     cout << "\nСоздаем Shape:" << endl;
-    shapes[1] = new Shape(1, 1);
+    shapes[2] = new Shape(1, 1);
 
     cout << "\nВызов виртуальных методов" << endl;
-    for(int i = 0; i < 2; i++) {
+    for(int i = 0; i < 3; i++) {
         shapes[i]->draw();
         cout << endl;
     }
 
     cout << "\nУдаление объектов " << endl;
-    for(int i = 0; i < 2; i++) {
+    for(int i = 0; i < 3; i++) {
         delete shapes[i];
         cout << endl;
     }
