@@ -56,6 +56,33 @@ public:
     }
 };
 
+class LineByPointer
+{
+private:
+    Point* start;
+    Point* end;
+public:
+    LineByPointer(const Point& s, const Point& e)
+    {
+        std::cout << "Конструктор LineByPointer вызван. Адрес: " << this << std::endl;
+        start = new Point(s);
+        end = new Point(e);
+    }
+    ~LineByPointer()
+    {
+        std::cout << "Вызван деструктор ~LineByPointer(). Адрес: " << this << std::endl;
+        delete start;
+        delete end;
+    }
+    void print() const
+    {
+        std::cout << "Линия с ";
+        start->print();
+        std::cout << " до ";
+        end->print();
+    }
+};
+
 int main()
 {
     SetConsoleCP(CP_UTF8);
@@ -65,7 +92,18 @@ int main()
     Point p1(0, 0);
     Point p2(10, 10);
 
-  return 0;
+    std::cout << "\nКомпозиция по значению" << std::endl;
+    {
+        LineByValue line1(p1, p2);
+        line1.print();
+    }
+    
+    std::cout << "\nКомпозиция через указатель" << std::endl;
+    {
+        LineByPointer line2(p1, p2);
+        line2.print();
+    }
+    
+    std::cout << "\nКонец" << std::endl;
+    return 0;
 }
-
-  
