@@ -18,6 +18,15 @@ class Point
         {
             std::cout<<"Вызван конструктор копирования Point(const Point&). Адрес: "<<this<<" (копирую с "<<&other<<")"<<std::endl;
         }
+        ~Point()
+        {
+            std::cout<<"Вызван деструктор ~Point(). Адрес: "<<this<<std::endl;
+        }
+        void set(int newX, int newY)
+        {
+            x = newX;
+            y = newY;
+        }
         void print() const 
         {
             std::cout<<"Point("<<x<<", "<<y<<") по адресу: "<<this<<std::endl;
